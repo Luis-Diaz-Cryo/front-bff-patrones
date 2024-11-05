@@ -1,0 +1,80 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build frontend project
+        working-directory: src/front  
+        run: CI=false npm run build
+
+      - name: Build BFF project
+        working-directory: src/bff  
+        run: CI=false npm run build
+
+      - name: Build and Push Frontend Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: cyldecryo/front
+          tags: ${{ github.sha }}
+          registry: docker.io
+          dockerfile: src/front/Dockerfile  # Path to frontend Dockerfile
+          username: cyldecryo
+          password: ${{ secrets.DockPassword }}
+
+      - name: Build and Push BFF Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: cyldecryo/bff
+          tags: ${{ github.sha }}
+          registry: docker.io
+          dockerfile: src/bff/Dockerfile  # Path to BFF Dockerfile
+          username: cyldecryo
+          password: ${{ secrets.DockPassword }}
+
+      - name: yq - portable yaml processor
+        uses: mikefarah/yq@v4.44.3
+
+      - name: Update Frontend Image Tag in Deployment YAML
+        env:
+          IMAGE_NAME: cyldecryo/front
+          NEW_TAG: ${{ github.sha }}
+        run: |
+          yq eval ".spec.template.spec.containers[0].image = \"${{ env.IMAGE_NAME }}:${{ env.NEW_TAG }}\"" -i manifests/front-deployment.yaml
+
+      - name: Update BFF Image Tag in Deployment YAML
+        env:
+          IMAGE_NAME: cyldecryo/bff
+          NEW_TAG: ${{ github.sha }}
+        run: |
+          yq eval ".spec.template.spec.containers[0].image = \"${{ env.IMAGE_NAME }}:${{ env.NEW_TAG }}\"" -i manifests/bff-deployment.yaml
+
+      - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add manifests/front-deployment.yaml manifests/bff-deployment.yaml
+          git commit -m "Update images to cyldecryo/front:${{ github.sha }} and cyldecryo/bff:${{ github.sha }}"
+          git push origin master
