@@ -38,7 +38,7 @@ jobs:
           image: cyldecryo/front
           tags: ${{ github.sha }}
           registry: docker.io
-          dockerfile: src/front/Dockerfile  # Path to frontend Dockerfile
+          dockerfile: src/front/Dockerfile 
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
@@ -48,7 +48,7 @@ jobs:
           image: cyldecryo/bff
           tags: ${{ github.sha }}
           registry: docker.io
-          dockerfile: src/bff/Dockerfile  # Path to BFF Dockerfile
+          dockerfile: src/bff/Dockerfile  
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
