@@ -40,7 +40,7 @@ jobs:
           tags: ${{ github.sha }}
           registry: docker.io
           dockerfile: src/front/Dockerfile
-          context: src/front  # Set build context for the frontend
+          directory: src/front  
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
@@ -51,7 +51,7 @@ jobs:
           tags: ${{ github.sha }}
           registry: docker.io
           dockerfile: src/bff/Dockerfile
-          context: src/bff  # Set build context for the BFF
+          directory: src/bff  
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
