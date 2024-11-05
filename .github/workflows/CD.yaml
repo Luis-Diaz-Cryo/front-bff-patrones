@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Install frontend dependencies
         working-directory: src/front
@@ -40,7 +40,7 @@ jobs:
           tags: ${{ github.sha }}
           registry: docker.io
           dockerfile: src/front/dockerfile
-          context: src/front
+          directory: src/front
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
@@ -52,7 +52,7 @@ jobs:
           tags: ${{ github.sha }}
           registry: docker.io
           dockerfile: src/bff/dockerfile
-          context: .
+          directory: src/front
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
