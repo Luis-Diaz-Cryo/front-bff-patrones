@@ -33,9 +33,7 @@ jobs:
         working-directory: src/front
         run: CI=false npm run build
 
-      - name: Build BFF project
-        working-directory: src/bff
-        run: CI=false npm run build
+      
 
       - name: Build and Push Frontend Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
