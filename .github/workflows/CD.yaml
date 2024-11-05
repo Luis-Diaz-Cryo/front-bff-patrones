@@ -39,7 +39,7 @@ jobs:
           image: cyldecryo/front
           tags: ${{ github.sha }}
           registry: docker.io
-          dockerfile: src/front/Dockerfile
+          dockerfile: src\front\Dockerfile
           context: .
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
