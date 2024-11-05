@@ -33,8 +33,6 @@ jobs:
         working-directory: src/front
         run: CI=false npm run build
 
-      
-
       - name: Build and Push Frontend Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
@@ -42,6 +40,7 @@ jobs:
           tags: ${{ github.sha }}
           registry: docker.io
           dockerfile: src/front/Dockerfile
+          context: src/front  # Set build context for the frontend
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
@@ -52,6 +51,7 @@ jobs:
           tags: ${{ github.sha }}
           registry: docker.io
           dockerfile: src/bff/Dockerfile
+          context: src/bff  # Set build context for the BFF
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
