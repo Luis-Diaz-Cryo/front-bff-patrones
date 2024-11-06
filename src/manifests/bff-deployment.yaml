@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: bff
-          image: cyldecryo/bff:94d3e6bcb4deb4b567a4219a173abe71a9afec79
+          image: cyldecryo/bff:e9c519857a085da83092e9d36cb3911339988070
           ports:
             - containerPort: 5000
