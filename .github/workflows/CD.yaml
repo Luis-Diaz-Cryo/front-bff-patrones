@@ -64,14 +64,14 @@ jobs:
           IMAGE_NAME: cyldecryo/front
           NEW_TAG: ${{ github.sha }}
         run: |
-          yq eval ".spec.template.spec.containers[0].image = \"${{ env.IMAGE_NAME }}:${{ env.NEW_TAG }}\"" -i manifests/front-deployment.yaml
+          yq eval ".spec.template.spec.containers[0].image = \"${{ env.IMAGE_NAME }}:${{ env.NEW_TAG }}\"" -i src/manifests/frontend-deployment.yaml
 
       - name: Update BFF Image Tag in Deployment YAML
         env:
           IMAGE_NAME: cyldecryo/bff
           NEW_TAG: ${{ github.sha }}
         run: |
-          yq eval ".spec.template.spec.containers[0].image = \"${{ env.IMAGE_NAME }}:${{ env.NEW_TAG }}\"" -i manifests/bff-deployment.yaml
+          yq eval ".spec.template.spec.containers[0].image = \"${{ env.IMAGE_NAME }}:${{ env.NEW_TAG }}\"" -i src/manifests/bff-deployment.yaml
 
       - name: Commit and Push Changes
         env:
