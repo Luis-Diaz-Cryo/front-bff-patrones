@@ -5,8 +5,10 @@ function App() {
   //http://127.0.0.1:30011
   //http://localhost:5001/api/data
   //http://192.168.49.2:30011
+  //http://bff-service:5000/api/data
+  //http://127.0.0.1:5000/api/data
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/data')
+    fetch('http://bff-service:5000/api/data')
       .then(response => response.json())
       .then(setData);
   }, []);
