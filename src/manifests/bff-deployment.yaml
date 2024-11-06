@@ -13,21 +13,25 @@ spec:
         app: bff
     spec:
       containers:
-      - name: bff
-        image: cyldecryo/bff:latest
-        ports:
-        - containerPort: 5000
+        - name: bff
+          image: cyldecryo/bff:2ad5e73f6845be1515ff65080983d3b41b59a9df
+          ports:
+            - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: bff-service
 spec:
-  type: NodePort  
+  type: NodePort
   selector:
     app: bff
   ports:
     - protocol: TCP
       port: 5000
       targetPort: 5000
-      nodePort: 30002  
+      nodePort: 30002
+  template:
+    spec:
+      containers:
+        - image: cyldecryo/bff:2ad5e73f6845be1515ff65080983d3b41b59a9df
