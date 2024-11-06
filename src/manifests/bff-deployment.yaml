@@ -16,4 +16,4 @@ spec:
         - name: bff
           image: cyldecryo/bff:355c9cd01c841457565c3328a06429c68f90ff14
           ports:
-            - containerPort: 5000
+            - containerPort: 8081
