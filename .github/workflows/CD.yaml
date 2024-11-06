@@ -58,14 +58,14 @@ jobs:
       - name: yq - portable yaml processor
         uses: mikefarah/yq@v4.44.3
 
-      - name: Update Frontend Image Tag in Deployment YAML
+      - name: Update Frontend Deployment Image Tag
         env:
           IMAGE_NAME: cyldecryo/front
           NEW_TAG: ${{ github.sha }}
         run: |
           yq eval ".spec.template.spec.containers[0].image = \"${{ env.IMAGE_NAME }}:${{ env.NEW_TAG }}\"" -i src/manifests/frontend-deployment.yaml
 
-      - name: Update BFF Image Tag in Deployment YAML
+      - name: Update BFF Deployment Image Tag
         env:
           IMAGE_NAME: cyldecryo/bff
           NEW_TAG: ${{ github.sha }}
