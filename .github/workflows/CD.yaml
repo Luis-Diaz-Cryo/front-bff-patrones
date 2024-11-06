@@ -44,7 +44,6 @@ jobs:
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
-
       - name: Build and Push BFF Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
@@ -52,7 +51,7 @@ jobs:
           tags: ${{ github.sha }}
           registry: docker.io
           dockerfile: src/bff/dockerfile
-          directory: src/front
+          directory: src/bff
           username: cyldecryo
           password: ${{ secrets.DockPassword }}
 
@@ -79,6 +78,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add manifests/front-deployment.yaml manifests/bff-deployment.yaml
+          git add src/manifests/frontend-deployment.yaml src/manifests/bff-deployment.yaml
           git commit -m "Update images to cyldecryo/front:${{ github.sha }} and cyldecryo/bff:${{ github.sha }}"
           git push origin master
