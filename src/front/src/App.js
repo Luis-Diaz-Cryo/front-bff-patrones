@@ -5,7 +5,7 @@ function App() {
   //http://127.0.0.1:30011
   //http://localhost:5001/api/data
   useEffect(() => {
-    fetch('http://localhost:5001/api/data')
+    fetch('http://127.0.0.1:5000/api/data')
       .then(response => response.json())
       .then(setData);
   }, []);
