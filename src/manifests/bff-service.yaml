@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: bff-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: bff
   ports:
     - protocol: TCP
-      port: 5000
-      targetPort: 5000
-      NodePort: 30011
+      port: 5000        
+      targetPort: 5000  
