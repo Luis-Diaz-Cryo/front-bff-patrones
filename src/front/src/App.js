@@ -4,7 +4,7 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://192.168.49.2:30011/api/data')
+    fetch('http://192.168.49.2:5000/api/data')
       .then(response => response.json())
       .then(setData);
   }, []);
