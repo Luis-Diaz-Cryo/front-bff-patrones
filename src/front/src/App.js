@@ -2,15 +2,21 @@ import React, { useState, useEffect } from 'react';
 
 function App() {
   const [data, setData] = useState(null);
-  //http://127.0.0.1:30011
-  //http://localhost:5001/api/data
-  //http://192.168.49.2:30011
-  //http://bff-service:5000/api/data
-  //http://127.0.0.1:5000/api/data
+  const apiUrl = 'http://bff-service:5000/api/data'; 
+
   useEffect(() => {
-    fetch('http://bff-service:5000/api/data')
-      .then(response => response.json())
-      .then(setData);
+    
+    console.log(`Fetching data from: ${apiUrl}`);
+
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(setData)
+      .catch(error => console.error('Error fetching data:', error));
   }, []);
 
   return (
@@ -22,5 +28,3 @@ function App() {
 }
 
 export default App;
-
-
