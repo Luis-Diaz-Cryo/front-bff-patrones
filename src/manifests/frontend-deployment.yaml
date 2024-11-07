@@ -16,4 +16,4 @@ spec:
         - name: frontend
           image: cyldecryo/front:33e83c6172348233ea220fccdf49699418864fde
           ports:
-            - containerPort: 8080
+            - containerPort: 80
