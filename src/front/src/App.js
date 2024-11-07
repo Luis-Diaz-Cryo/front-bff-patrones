@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function App() {
   const [data, setData] = useState(null);
-  const apiUrl = 'http://bff-service:5000/api/data'; 
+  const apiUrl = 'http://127.0.0.1:5000/api/data'; 
 
   useEffect(() => {
     
